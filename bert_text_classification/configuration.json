@@ -1,0 +1,84 @@
+{
+  "framework": "pytorch",
+  "task": "text-classification",
+  "model": {
+    "type": "structbert",
+    "language": "zh",
+    "num_labels": 2
+  },
+  "pipeline": {
+    "type": "text-classification"
+  },
+  "preprocessor": {
+    "type": "sen-cls-tokenizer",
+    "max_length": 128,
+    "first_sequence": "sentence",
+    "label": "label",
+    "label2id": {
+      "0": 0,
+      "1": 1
+    }
+  },
+  "train": {
+    "work_dir": "output_bert_text_classification",
+    "max_epochs": 24,
+    "dataloader": {
+      "batch_size_per_gpu": 32,
+      "workers_per_gpu": 0
+    },
+    "optimizer": {
+      "type": "AdamW",
+      "lr": 2e-5,
+      "options": {}
+    },
+    "lr_scheduler": {
+      "type": "LinearLR",
+      "start_factor": 1.0,
+      "end_factor": 0.0,
+      "total_iters": 1000,
+      "options": {
+        "by_epoch": false
+      }
+    },
+    "hooks": [
+      {
+        "type": "CheckpointHook",
+        "interval": 1
+      },
+      {
+        "type": "TextLoggerHook",
+        "interval": 1
+      },
+      {
+        "type": "IterTimerHook"
+      },
+      {
+        "type": "EvaluationHook",
+        "by_epoch": true,
+        "interval": 1
+      }
+    ],
+    "checkpoint": {
+      "period": {
+        "interval": 1
+      }
+    },
+    "logging": {
+      "interval": 10
+    }
+  },
+  "evaluation": {
+    "dataloader": {
+      "batch_size_per_gpu": 32,
+      "workers_per_gpu": 0,
+      "shuffle": false
+    },
+    "period": {
+      "eval_strategy": "by_epoch",
+      "interval": 1,
+      "by_epoch": true
+    },
+    "metrics": "seq-cls-metric"
+  },
+  "allow_remote": true
+}

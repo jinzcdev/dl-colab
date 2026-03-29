@@ -16,7 +16,7 @@ PYTHONPATH=. python text_classification/finetune_text_classification.py \
     --per_device_eval_batch_size 32 \
     --eval_interval 100 \
     --eval_strategy by_step \
-    --work_dir './tmp/structbert_1x32' \
+    --work_dir './tmp/structbert_1x32_ca' \
     --train_data_worker 0 \
     --eval_data_worker 0 \
     --lr 1e-5 \

@@ -21,9 +21,9 @@
   },
   "train": {
     "work_dir": "output_bert_text_classification",
-    "max_epochs": 24,
+    "max_epochs": 10,
     "dataloader": {
-      "batch_size_per_gpu": 32,
+      "batch_size_per_gpu": 2,
       "workers_per_gpu": 0
     },
     "optimizer": {

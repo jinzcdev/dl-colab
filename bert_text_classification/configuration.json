@@ -23,7 +23,7 @@
     "work_dir": "output_bert_text_classification",
     "max_epochs": 10,
     "dataloader": {
-      "batch_size_per_gpu": 2,
+      "batch_size_per_gpu": 16,
       "workers_per_gpu": 0
     },
     "optimizer": {
@@ -56,6 +56,14 @@
         "type": "EvaluationHook",
         "by_epoch": true,
         "interval": 1
+      },
+      {
+        "type": "TensorboardHook",
+        "interval": 5
+      },
+      {
+        "type": "EarlyStopHook",
+        "metric_key": "f1"
       }
     ],
     "checkpoint": {
